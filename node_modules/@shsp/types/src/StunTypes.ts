@@ -1,0 +1,9 @@
+export type StunResponse = {
+  publicIp: string;      // Es: "203.0.113.42"
+  publicPort: number;    // Es: 54723
+  transactionId: Buffer; // Transaction ID della richiesta STUN (12 byte)
+  raw: Buffer;           // Il pacchetto STUN ricevuto (binario)
+  attrs?: {
+    [key: string]: any;  // Eventuali altri attributi STUN
+  };
+};

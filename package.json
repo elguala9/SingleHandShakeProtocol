@@ -1,0 +1,37 @@
+{
+  "name": "shsp",
+  "version": "0.0.1",
+  "description": "A protocol with only an handshake",
+  "homepage": "https://github.com/elguala9/SingleHandShakeProtocol#readme",
+  "bugs": {
+    "url": "https://github.com/elguala9/SingleHandShakeProtocol/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elguala9/SingleHandShakeProtocol.git"
+  },
+  "license": "LGPL-3.0-or-later",
+  "author": "Luca Gualandi",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx lage build",
+    "barrelsby": "npx lage barrelsby && npm run add-js",
+    "gen-exports": "npx lage gen-exports",
+    "test": "npx lage test",
+    "clean": "rimraf packages/*/dist",
+    "add-js": "npx add-js-import -ed typeschain",
+    "compile": "npm run barrelsby && npm run build && npm run gen-exports && npm run add-js",
+    "prepareTest": "npm run compile"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "barrelsby": "^2.8.1",
+    "lage": "^2.14.15"
+  },
+  "dependencies": {
+    "add-js-import": "^1.0.2"
+  }
+}

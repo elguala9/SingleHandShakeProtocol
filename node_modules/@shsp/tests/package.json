@@ -1,0 +1,16 @@
+{
+  "name": "@shsp/tests",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "LGPL-3.0-or-later",
+  "scripts": {
+    "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
+    "build": "tsc -b",
+    "gen-exports": "npx gen-exports dist -p package.json"
+  },
+  "dependencies": {
+    "@shsp/interfaces": "0.0.1",
+    "@shsp/implementations": "0.0.1",
+    "@shsp/types": "0.0.1"
+  }
+}

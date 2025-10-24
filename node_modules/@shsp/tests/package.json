@@ -1,16 +1,62 @@
 {
   "name": "@shsp/tests",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "LGPL-3.0-or-later",
   "scripts": {
     "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
     "build": "tsc -b",
-    "gen-exports": "npx gen-exports dist -p package.json"
+    "gen-exports": "npx gen-exports dist -p package.json",
+    "test:stun-handler": "ts-mocha src/launcher/runIStunHandlerTests.ts",
+    "test:shsp-socket": "ts-mocha src/launcher/runIShspSocketTests.ts --timeout 30000"
   },
   "dependencies": {
-    "@shsp/interfaces": "0.0.1",
     "@shsp/implementations": "0.0.1",
+    "@shsp/interfaces": "0.0.1",
     "@shsp/types": "0.0.1"
+  },
+  "exports": {
+    "./dummy": {
+      "import": "./dist/dummy.js",
+      "require": "./dist/dummy.js",
+      "types": "./dist/dummy.d.ts"
+    },
+    "./index": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./IStunHandler.spec": {
+      "import": "./dist/IStunHandler.spec.js",
+      "require": "./dist/IStunHandler.spec.js",
+      "types": "./dist/IStunHandler.spec.d.ts"
+    },
+    "./TestShspSocket.spec": {
+      "import": "./dist/TestShspSocket.spec.js",
+      "require": "./dist/TestShspSocket.spec.js",
+      "types": "./dist/TestShspSocket.spec.d.ts"
+    },
+    "./TestStunHandler.spec": {
+      "import": "./dist/TestStunHandler.spec.js",
+      "require": "./dist/TestStunHandler.spec.js",
+      "types": "./dist/TestStunHandler.spec.d.ts"
+    },
+    "./launcher/runIShspSocketTests": {
+      "import": "./dist/launcher/runIShspSocketTests.js",
+      "require": "./dist/launcher/runIShspSocketTests.js",
+      "types": "./dist/launcher/runIShspSocketTests.d.ts"
+    },
+    "./launcher/runIStunHandlerTests": {
+      "import": "./dist/launcher/runIStunHandlerTests.js",
+      "require": "./dist/launcher/runIStunHandlerTests.js",
+      "types": "./dist/launcher/runIStunHandlerTests.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@types/chai": "^5.2.3",
+    "@types/mocha": "^10.0.10",
+    "chai": "^6.2.0",
+    "ts-mocha": "^11.1.0"
   }
 }

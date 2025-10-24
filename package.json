@@ -22,7 +22,9 @@
     "clean": "rimraf packages/*/dist",
     "add-js": "npx add-js-import -ed typeschain",
     "compile": "npm run barrelsby && npm run build && npm run gen-exports && npm run add-js",
-    "prepareTest": "npm run compile"
+    "prepareTest": "npm run compile",
+    "test:stun-handler": "npm run prepareTest && npm run test:stun-handler --workspace=@shsp/tests",
+    "test:shsp-socket": "npm run prepareTest && npm run test:shsp-socket --workspace=@shsp/tests"
   },
   "workspaces": [
     "packages/*"

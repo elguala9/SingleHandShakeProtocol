@@ -1,15 +1,91 @@
 {
   "name": "@shsp/implementations",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "LGPL-3.0-or-later",
   "scripts": {
-    "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
+    "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts --exclude stun.d.ts",
     "build": "tsc -b",
-    "gen-exports": "npx gen-exports dist -p package.json"
+    "gen-exports": "npx gen-exports dist -p package.json",
+    "test:shsp-socket": "ts-mocha ../../SHSPTests/src/TestShspSocket.spec.ts"
   },
   "dependencies": {
     "@shsp/interfaces": "0.0.1",
-    "@shsp/types": "0.0.1"
+    "@shsp/types": "0.0.1",
+    "stun": "^2.1.0",
+    "stun-js": "^0.7.0"
+  },
+  "exports": {
+    "./dummy": {
+      "import": "./dist/dummy.js",
+      "require": "./dist/dummy.js",
+      "types": "./dist/dummy.d.ts"
+    },
+    "./index": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./Shsp": {
+      "import": "./dist/Shsp.js",
+      "require": "./dist/Shsp.js",
+      "types": "./dist/Shsp.d.ts"
+    },
+    "./ShspPeer": {
+      "import": "./dist/ShspPeer.js",
+      "require": "./dist/ShspPeer.js",
+      "types": "./dist/ShspPeer.d.ts"
+    },
+    "./ShspSocket": {
+      "import": "./dist/ShspSocket.js",
+      "require": "./dist/ShspSocket.js",
+      "types": "./dist/ShspSocket.d.ts"
+    },
+    "./StunHandler": {
+      "import": "./dist/StunHandler.js",
+      "require": "./dist/StunHandler.js",
+      "types": "./dist/StunHandler.d.ts"
+    },
+    "./utility": {
+      "import": "./dist/utility.js",
+      "require": "./dist/utility.js",
+      "types": "./dist/utility.d.ts"
+    },
+    "./implementations/Shsp": {
+      "import": "./dist/implementations/Shsp.js",
+      "require": "./dist/implementations/Shsp.js",
+      "types": "./dist/implementations/Shsp.d.ts"
+    },
+    "./implementations/ShspPeer": {
+      "import": "./dist/implementations/ShspPeer.js",
+      "require": "./dist/implementations/ShspPeer.js",
+      "types": "./dist/implementations/ShspPeer.d.ts"
+    },
+    "./implementations/ShspSocket": {
+      "import": "./dist/implementations/ShspSocket.js",
+      "require": "./dist/implementations/ShspSocket.js",
+      "types": "./dist/implementations/ShspSocket.d.ts"
+    },
+    "./implementations/StunHandler": {
+      "import": "./dist/implementations/StunHandler.js",
+      "require": "./dist/implementations/StunHandler.js",
+      "types": "./dist/implementations/StunHandler.d.ts"
+    },
+    "./utility/AddressUtility": {
+      "import": "./dist/utility/AddressUtility.js",
+      "require": "./dist/utility/AddressUtility.js",
+      "types": "./dist/utility/AddressUtility.d.ts"
+    },
+    "./utility/CallbackMap": {
+      "import": "./dist/utility/CallbackMap.js",
+      "require": "./dist/utility/CallbackMap.js",
+      "types": "./dist/utility/CallbackMap.d.ts"
+    },
+    "./utility/CreateSocket": {
+      "import": "./dist/utility/CreateSocket.js",
+      "require": "./dist/utility/CreateSocket.js",
+      "types": "./dist/utility/CreateSocket.d.ts"
+    }
   }
 }

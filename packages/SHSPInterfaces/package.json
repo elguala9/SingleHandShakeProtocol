@@ -1,7 +1,8 @@
 {
   "name": "@shsp/interfaces",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "LGPL-3.0-or-later",
   "scripts": {
     "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
@@ -13,5 +14,32 @@
   },
   "devDependencies": {
     "@types/node": "^24.9.1"
+  },
+  "exports": {
+    "./index": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./IShsp": {
+      "import": "./dist/IShsp.js",
+      "require": "./dist/IShsp.js",
+      "types": "./dist/IShsp.d.ts"
+    },
+    "./IShspPeer": {
+      "import": "./dist/IShspPeer.js",
+      "require": "./dist/IShspPeer.js",
+      "types": "./dist/IShspPeer.d.ts"
+    },
+    "./IShspSocket": {
+      "import": "./dist/IShspSocket.js",
+      "require": "./dist/IShspSocket.js",
+      "types": "./dist/IShspSocket.d.ts"
+    },
+    "./IStunHandler": {
+      "import": "./dist/IStunHandler.js",
+      "require": "./dist/IStunHandler.js",
+      "types": "./dist/IStunHandler.d.ts"
+    }
   }
 }

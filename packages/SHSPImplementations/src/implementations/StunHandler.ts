@@ -4,9 +4,10 @@ export const DEFAULT_STUN_CONFIG = {
   localPort: 49152
 };
 import { IShspSocket, IStunHandler } from '@shsp/interfaces/index';
-import { StunResponse } from '@shsp/types/index';
+import { LocalInfo, StunResponse } from '@shsp/types/index';
 import stun from 'stun';
 import { createSocket } from '../utility/CreateSocket';
+import { getLocalIp } from '../utility/AddressUtility';
 
 type StunHandlerInput = {
   address?: string;
@@ -30,6 +31,18 @@ export class StunHandler implements IStunHandler {
     this.socket = createSocket('udp4');
     this.socket.bind(localPort);
   }
+
+  async performLocalRequest(): Promise<LocalInfo> {
+    const addressInfo = this.socket.address();
+    if (typeof addressInfo === 'string' || typeof addressInfo.port !== 'number') {
+      throw new Error('[StunHandler] Impossibile determinare la porta locale dal socket.');
+    }
+    return {
+      localIp: await getLocalIp(),
+      localPort: addressInfo.port,
+    };
+  }
+
 
   getSocket(): IShspSocket {
     return this.socket;

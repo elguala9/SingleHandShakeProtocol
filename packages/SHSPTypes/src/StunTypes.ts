@@ -7,3 +7,9 @@ export type StunResponse = {
     [key: string]: any;  // Eventuali altri attributi STUN
   };
 };
+
+
+export type LocalInfo = {
+  localIp: string;      // Es: "192.168.1.2"
+  localPort: number;    // Es: 12345
+};

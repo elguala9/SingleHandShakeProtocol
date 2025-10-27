@@ -3,6 +3,8 @@
  */
 
 export * from "./dummy.js";
+export * from "./TestShspReceiver.spec.js";
+export * from "./TestShspSender.spec.js";
 export * from "./TestShspSocket.spec.js";
 export * from "./TestStunHandler.spec.js";
 export * from "./launcher/runIShspSocketTests.js";

@@ -4,10 +4,7 @@ import { expect } from "chai";
 
 export function testSender(socket: IShspSocket, port: number) {
   describe("SHSP Sender", function () {
-    before(function (done) {
-      this.timeout(10000);
-      socket.bind(port, done);
-    });
+
 
     it("Should log local address and send a packet", function (done) {
       console.log("[SENDER] Local address:", socket.address());

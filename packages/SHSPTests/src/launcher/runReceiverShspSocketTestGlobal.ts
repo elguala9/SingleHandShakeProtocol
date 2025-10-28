@@ -1,8 +1,8 @@
 import { StunHandler } from "@shsp/implementations/index";
 import { testReceiver } from "../TestShspReceiver.spec";
 
-const handler = new StunHandler();
+const handler = new StunHandler({localPort: 50000});
 const socket = handler.getSocket();
 
-socket.bind(50000);
+
 testReceiver(socket, 50000);

@@ -9,3 +9,7 @@ export * from "./TestShspSocket.spec.js";
 export * from "./TestStunHandler.spec.js";
 export * from "./launcher/runIShspSocketTests.js";
 export * from "./launcher/runIStunHandlerTests.js";
+export * from "./launcher/runReceiverShspSocketTestGlobal.js";
+export * from "./launcher/runReceiverShspSocketTestLocal.js";
+export * from "./launcher/runSenderShspSocketTestGlobal.js";
+export * from "./launcher/runSenderShspSocketTestLocal.js";

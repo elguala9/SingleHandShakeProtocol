@@ -1,8 +1,11 @@
-import { testSingleShspSocket } from "../TestShspSocket.spec";
-import { StunHandler } from "@shsp/implementations/index";
+import { createShspSocket } from "@shsp/implementations/index";
+import { testSocketPair } from "../TestShspSocket.spec";
+const socketA = createShspSocket('udp4');
+const socketB = createShspSocket('udp4');
 
-testSingleShspSocket(async () => {
-  // Istanzia e configura il handler come necessario
-  const handler = new StunHandler();
-  return { handler };
-});
+testSocketPair(
+  socketA,
+  socketB,
+  50000,
+  50001
+);

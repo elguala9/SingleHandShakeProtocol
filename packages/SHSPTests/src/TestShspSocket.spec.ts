@@ -1,67 +1,55 @@
-import { IShspSocket, IStunHandler } from "@shsp/interfaces/index";
+import { IShspSocket } from "@shsp/interfaces/index";
 import { expect } from "chai";
-import readline from "node:readline";
 
-export function testSingleShspSocket(
-  f: () => Promise<{ handler: IStunHandler }>
+
+export function testSocketPair(
+  socketA: IShspSocket,
+  socketB: IShspSocket,
+  portA: number,
+  portB: number
 ) {
-  let handler: IStunHandler;
-  let socket: IShspSocket;
-  let remoteIp = "";
-  let remotePort = 0;
+  describe('IShspSocket Pair Test', function () {
+    /*before(function (done) {
+      this.timeout(10000);
+      socketA.bind(portA, () => {
+        socketB.bind(portB, done);
+      });
+    });*/
 
-  describe('Single IShspSocket Peer Test', function () {
-    before(async function () {
-      this.timeout(20000);
-      let x = await f();
-      handler = x.handler;
-      socket = handler.getSocket();
-    });
-
-    it('Should bind and log local info', async function () {
-      const localInfo = await handler.performLocalRequest();
-      console.log('[TEST] Local info:', localInfo);
-      expect(localInfo).to.have.property('localIp');
-      expect(localInfo).to.have.property('localPort');
-    });
-
-    it('Should receive messages from remote peer', function (done) {
-      socket.on('message', (msg, rinfo) => {
-        console.log('[TEST] Received message:', msg.toString(), rinfo);
+    it('Should send from A to B and receive', function (done) {
+      const message = Buffer.from('Hello from A to B!');
+      socketB.on('message', (msg, rinfo) => {
+        console.log('[PAIR TEST] B received:', msg.toString(), rinfo);
+        expect(msg.toString()).to.equal('Hello from A to B!');
         done();
       });
-    });
-
-    it('Should ask for remote IP and port, then send message', function (done) {
-      askRemoteInfo().then(({ ip, port }) => {
-        remoteIp = ip;
-        remotePort = port;
-        if (!remoteIp || !remotePort) {
-          console.warn('[TEST] IP o porta non validi, skipping send test');
-          return done();
-        }
-        const message = Buffer.from('Hello from single peer!');
-        socket.send(message, 0, message.length, remotePort, remoteIp, (err) => {
-          if (err) return done(err);
-          console.log('[TEST] Sent message to', remoteIp, remotePort);
-          done();
-        });
+      socketA.send(message, 0, message.length, portB, '127.0.0.1', (err) => {
+        if (err) return done(err);
+        console.log('[PAIR TEST] A sent:', message.toString(), 'to', '127.0.0.1', portB);
       });
     });
 
-    function askRemoteInfo(): Promise<{ ip: string; port: number }> {
-      return new Promise((resolve) => {
-        const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-        rl.question('Inserisci IP del peer remoto: ', (ip) => {
-          rl.question('Inserisci porta del peer remoto: ', (portStr) => {
-            rl.close();
-            resolve({ ip: ip.trim(), port: Number(portStr.trim()) });
-          });
-        });
+    it('Should send from B to A and receive', function (done) {
+      const message = Buffer.from('Hello from B to A!');
+      socketA.on('message', (msg, rinfo) => {
+        console.log('[PAIR TEST] A received:', msg.toString(), rinfo);
+        expect(msg.toString()).to.equal('Hello from B to A!');
+        done();
       });
-    }
+      socketB.send(message, 0, message.length, portA, '127.0.0.1', (err) => {
+        if (err) return done(err);
+        console.log('[PAIR TEST] B sent:', message.toString(), 'to', '127.0.0.1', portA);
+      });
+    });
+
+    after(function () {
+      socketA.close();
+      socketB.close();
+    });
   });
 }
 
 // Esempio di utilizzo:
 // testSingleShspSocket(async () => ({ handler: /* crea e ritorna il tuo handler qui */ }));
+// import { createSocket } from '@shsp/implementations';
+// testSocketPair(createSocket('udp4'), createSocket('udp4'), 50000, 50001);

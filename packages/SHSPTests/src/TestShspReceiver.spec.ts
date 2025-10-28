@@ -1,30 +1,28 @@
-import { StunHandler } from "@shsp/implementations/index";
+import { IShspSocket } from "@shsp/interfaces/index";
 import { expect } from "chai";
 
-// Test ricevente: mostra IP/porta pubblici e attende un pacchetto da chiunque
+export function testReceiver(socket: IShspSocket, port: number) {
+  describe("SHSP Receiver", function () {
+    before(function (done) {
+      this.timeout(10000);
+      socket.bind(port, done);
+    });
 
-describe("SHSP Receiver", function () {
-  let handler: StunHandler;
-  let socket: any;
+    it("Should log local address and wait for a packet", function (done) {
+      console.log("[RECEIVER] Local address:", socket.address());
+      socket.on("message", (msg: Buffer, rinfo: any) => {
+        console.log("[RECEIVER] Received:", msg.toString(), "from", rinfo.address, rinfo.port);
+        expect(msg).to.be.instanceOf(Buffer);
+        done();
+      });
+    });
 
-  before(async function () {
-    this.timeout(20000);
-    handler = new StunHandler();
-    socket = handler.getSocket();
-  });
-
-  it("Should perform STUN request and log public IP/port", async function () {
-    const stunRes = await handler.performStunRequest();
-    console.log("[RECEIVER] Public IP:", stunRes.publicIp, "Public Port:", stunRes.publicPort);
-    expect(stunRes).to.have.property("publicIp");
-    expect(stunRes).to.have.property("publicPort");
-  });
-
-  it("Should wait for a packet from anyone", function (done) {
-    console.log("[RECEIVER] Waiting for a packet on:", socket.address());
-    socket.on("message", (msg: Buffer, rinfo: any) => {
-      console.log("[RECEIVER] Received:", msg.toString(), "from", rinfo.address, rinfo.port);
-      done();
+    it("Should close the socket", function () {
+      socket.close();
     });
   });
-});
+}
+
+// Esempio di utilizzo:
+// import { createShspSocket } from '@shsp/implementations';
+// testReceiver(createShspSocket('udp4'), 50001);

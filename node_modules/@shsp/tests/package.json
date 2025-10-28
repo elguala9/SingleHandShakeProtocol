@@ -1,17 +1,17 @@
 {
   "name": "@shsp/tests",
   "version": "0.0.1",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "license": "LGPL-3.0-or-later",
-  "scripts": {
+  "main": "dist/index.js",  "types": "dist/index.d.ts",
+  "license": "LGPL-3.0-or-later",  "scripts": {
     "barrelsby": "barrelsby --directory src --delete --barrelName index.ts --extensions ts",
     "build": "tsc -b",
     "gen-exports": "npx gen-exports dist -p package.json",
     "test:stun-handler": "ts-mocha src/launcher/runIStunHandlerTests.ts",
     "test:shsp-socket": "ts-mocha src/launcher/runIShspSocketTests.ts --timeout 30000",
-    "test:receiver": "ts-mocha src/TestShspReceiver.spec.ts --timeout 30000",
-    "test:sender": "ts-mocha src/TestShspSender.spec.ts --timeout 30000"
+    "test:receiver": "ts-mocha src/launcher/runReceiverShspSocketTestLocal.ts --timeout 300000",
+    "test:sender": "ts-mocha src/launcher/runSenderShspSocketTestLocal.ts --timeout 30000",
+    "test:receiver-global": "ts-mocha src/launcher/runReceiverShspSocketTestGlobal.ts --timeout 300000",
+    "test:sender-global": "ts-mocha src/launcher/runSenderShspSocketTestGlobal.ts --timeout 30000"
   },
   "dependencies": {
     "@shsp/implementations": "0.0.1",
@@ -63,6 +63,36 @@
       "import": "./dist/launcher/runIStunHandlerTests.js",
       "require": "./dist/launcher/runIStunHandlerTests.js",
       "types": "./dist/launcher/runIStunHandlerTests.d.ts"
+    },
+    "./launcher/runReceiverShspSocketTest": {
+      "import": "./dist/launcher/runReceiverShspSocketTest.js",
+      "require": "./dist/launcher/runReceiverShspSocketTest.js",
+      "types": "./dist/launcher/runReceiverShspSocketTest.d.ts"
+    },
+    "./launcher/runReceiverShspSocketTestGlobal": {
+      "import": "./dist/launcher/runReceiverShspSocketTestGlobal.js",
+      "require": "./dist/launcher/runReceiverShspSocketTestGlobal.js",
+      "types": "./dist/launcher/runReceiverShspSocketTestGlobal.d.ts"
+    },
+    "./launcher/runReceiverShspSocketTestLocal": {
+      "import": "./dist/launcher/runReceiverShspSocketTestLocal.js",
+      "require": "./dist/launcher/runReceiverShspSocketTestLocal.js",
+      "types": "./dist/launcher/runReceiverShspSocketTestLocal.d.ts"
+    },
+    "./launcher/runSenderShspSocketTest": {
+      "import": "./dist/launcher/runSenderShspSocketTest.js",
+      "require": "./dist/launcher/runSenderShspSocketTest.js",
+      "types": "./dist/launcher/runSenderShspSocketTest.d.ts"
+    },
+    "./launcher/runSenderShspSocketTestGlobal": {
+      "import": "./dist/launcher/runSenderShspSocketTestGlobal.js",
+      "require": "./dist/launcher/runSenderShspSocketTestGlobal.js",
+      "types": "./dist/launcher/runSenderShspSocketTestGlobal.d.ts"
+    },
+    "./launcher/runSenderShspSocketTestLocal": {
+      "import": "./dist/launcher/runSenderShspSocketTestLocal.js",
+      "require": "./dist/launcher/runSenderShspSocketTestLocal.js",
+      "types": "./dist/launcher/runSenderShspSocketTestLocal.d.ts"
     }
   },
   "devDependencies": {

@@ -1,8 +1,14 @@
 import { IShspSocket } from "@shsp/interfaces/index";
 import { expect } from "chai";
 
-export function testReceiver(socket: IShspSocket, port: number) {
+export function testReceiver(socket: IShspSocket, port: number, stunHandler?: any) {
   describe("SHSP Receiver", function () {
+    before(async function() {
+      if (stunHandler) {
+        await stunHandler.performStunRequest();
+        console.log("[RECEIVER] STUN request completed");
+      }
+    });
 
     it("Should log local address and wait for a packet", function (done) {
       console.log("[RECEIVER] Local address:", socket.address());

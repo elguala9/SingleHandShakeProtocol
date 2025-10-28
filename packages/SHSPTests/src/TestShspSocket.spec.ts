@@ -9,12 +9,7 @@ export function testSocketPair(
   portB: number
 ) {
   describe('IShspSocket Pair Test', function () {
-    /*before(function (done) {
-      this.timeout(10000);
-      socketA.bind(portA, () => {
-        socketB.bind(portB, done);
-      });
-    });*/
+
 
     it('Should send from A to B and receive', function (done) {
       const message = Buffer.from('Hello from A to B!');

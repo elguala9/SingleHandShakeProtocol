@@ -23,10 +23,12 @@
     "add-js": "npx add-js-import -ed typeschain",
     "compile": "npm run barrelsby && npm run build && npm run gen-exports && npm run add-js",
     "prepareTest": "npm run compile",
-  "test:stun-handler": "npm run prepareTest && npm run test:stun-handler --workspace=@shsp/tests",
-  "test:shsp-socket": "npm run prepareTest && npm run test:shsp-socket --workspace=@shsp/tests",
-  "test:receiver": "npm run prepareTest && npm run test:receiver --workspace=@shsp/tests",
-  "test:sender": "npm run prepareTest && npm run test:sender --workspace=@shsp/tests"
+    "test:stun-handler": "npm run prepareTest && npm run test:stun-handler --workspace=@shsp/tests",
+    "test:shsp-socket": "npm run prepareTest && npm run test:shsp-socket --workspace=@shsp/tests",
+    "test:receiver": "npm run prepareTest && npm run test:receiver --workspace=@shsp/tests",
+    "test:sender": "npm run prepareTest && npm run test:sender --workspace=@shsp/tests",
+    "test:receiver-global": "npm run prepareTest && npm run test:receiver-global --workspace=@shsp/tests",
+    "test:sender-global": "npm run prepareTest && npm run test:sender-global --workspace=@shsp/tests"
   },
   "workspaces": [
     "packages/*"

@@ -1,50 +1,48 @@
-import { StunHandler } from "@shsp/implementations/index";
-import { expect } from "chai";
+import { IShspSocket } from "@shsp/interfaces/index";
 import readline from "node:readline";
+import { expect } from "chai";
 
-// Test inviante: mostra IP/porta pubblici, chiede IP/porta destinatario e invia pacchetto
+export function testSender(socket: IShspSocket, port: number) {
+  describe("SHSP Sender", function () {
+    before(function (done) {
+      this.timeout(10000);
+      socket.bind(port, done);
+    });
 
-describe("SHSP Sender", function () {
-  let handler: StunHandler;
-  let socket: any;
-
-  before(async function () {
-    this.timeout(20000);
-    handler = new StunHandler();
-    socket = handler.getSocket();
-  });
-
-  it("Should perform STUN request and log public IP/port", async function () {
-    const stunRes = await handler.performStunRequest();
-    console.log("[SENDER] Public IP:", stunRes.publicIp, "Public Port:", stunRes.publicPort);
-    expect(stunRes).to.have.property("publicIp");
-    expect(stunRes).to.have.property("publicPort");
-  });
-
-  it("Should ask for remote IP/port and send packet", function (done) {
-    askRemoteInfo().then(({ ip, port }) => {
-      if (!ip || !port) {
-        console.warn("[SENDER] IP o porta non validi, skipping send test");
-        return done();
-      }
-      const message = Buffer.from("Hello from SHSP sender!");
-      socket.send(message, 0, message.length, port, ip, (err: any) => {
-        if (err) return done(err);
-        console.log("[SENDER] Sent message to", ip, port);
-        done();
+    it("Should log local address and send a packet", function (done) {
+      console.log("[SENDER] Local address:", socket.address());
+      askRemoteInfo().then(({ ip, remotePort }) => {
+        if (!ip || !remotePort) {
+          console.warn("[SENDER] IP o porta non validi, skipping send test");
+          return done();
+        }
+        const message = Buffer.from("Hello from SHSP sender!");
+        socket.send(message, 0, message.length, remotePort, ip, (err: any) => {
+          if (err) return done(err);
+          console.log("[SENDER] Sent message to", ip, remotePort);
+          done();
+        });
       });
     });
-  });
-});
 
-function askRemoteInfo(): Promise<{ ip: string; port: number }> {
+    it("Should close the socket", function () {
+      socket.close();
+    });
+  });
+}
+
+function askRemoteInfo(): Promise<{ ip: string; remotePort: number }> {
   return new Promise((resolve) => {
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
     rl.question("Inserisci IP del peer destinatario: ", (ip) => {
       rl.question("Inserisci porta del peer destinatario: ", (portStr) => {
         rl.close();
-        resolve({ ip: ip.trim(), port: Number(portStr.trim()) });
+        resolve({ ip: ip.trim(), remotePort: Number(portStr.trim()) });
       });
     });
   });
 }
+
+// Esempio di utilizzo:
+// import { createShspSocket } from '@shsp/implementations';
+// testSender(createShspSocket('udp4'), 50000);

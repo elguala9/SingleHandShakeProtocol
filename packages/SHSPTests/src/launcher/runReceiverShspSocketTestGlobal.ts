@@ -1,8 +1,15 @@
+
+
 import { StunHandler } from "@shsp/implementations/index";
 import { testReceiver } from "../TestShspReceiver.spec";
 
-const handler = new StunHandler({localPort: 50000});
-const socket = handler.getSocket();
 
+async function main() {
+	const handler = new StunHandler({localPort: 50000});
+	const socket = handler.getSocket();
+	await handler.performStunRequest();
+	console.log("STUN request completed");
+	testReceiver(socket, 50000);
+}
 
-testReceiver(socket, 50000);
+main();

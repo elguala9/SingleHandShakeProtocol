@@ -3,10 +3,6 @@ import { expect } from "chai";
 
 export function testReceiver(socket: IShspSocket, port: number) {
   describe("SHSP Receiver", function () {
-    before(function (done) {
-      this.timeout(10000);
-      socket.bind(port, done);
-    });
 
     it("Should log local address and wait for a packet", function (done) {
       console.log("[RECEIVER] Local address:", socket.address());

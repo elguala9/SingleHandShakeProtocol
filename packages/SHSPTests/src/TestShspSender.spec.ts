@@ -1,6 +1,5 @@
 import { IShspSocket } from "@shsp/interfaces/index";
-import readline from "node:readline";
-import { expect } from "chai";
+import { askRemoteInfo, sendMultiplePackets } from "./testUtils";
 
 export function testSender(socket: IShspSocket, port: number, stunHandler?: any) {
   describe("SHSP Sender", function () {
@@ -11,36 +10,21 @@ export function testSender(socket: IShspSocket, port: number, stunHandler?: any)
       }
     });
 
-    it("Should log local address and send a packet", function (done) {
+    it("Should log local address and send 5 packets, one every 20 seconds", async function () {
+      this.timeout(120000); // 2 minutes timeout
       console.log("[SENDER] Local address:", socket.address());
-      askRemoteInfo().then(({ ip, remotePort }) => {
-        if (!ip || !remotePort) {
-          console.warn("[SENDER] IP o porta non validi, skipping send test");
-          return done();
-        }
-        const message = Buffer.from("Hello from SHSP sender!");
-        socket.send(message, 0, message.length, remotePort, ip, (err: any) => {
-          if (err) return done(err);
-          console.log("[SENDER] Sent message to", ip, remotePort);
-          done();
-        });
-      });
+      
+      const { ip, remotePort } = await askRemoteInfo();
+      if (!ip || !remotePort) {
+        console.warn("[SENDER] IP o porta non validi, skipping send test");
+        return;
+      }
+      
+      await sendMultiplePackets(socket, ip, remotePort, "SENDER", 5, 20000);
     });
 
     it("Should close the socket", function () {
       socket.close();
-    });
-  });
-}
-
-function askRemoteInfo(): Promise<{ ip: string; remotePort: number }> {
-  return new Promise((resolve) => {
-    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-    rl.question("Inserisci IP del peer destinatario: ", (ip) => {
-      rl.question("Inserisci porta del peer destinatario: ", (portStr) => {
-        rl.close();
-        resolve({ ip: ip.trim(), remotePort: Number(portStr.trim()) });
-      });
     });
   });
 }

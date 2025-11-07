@@ -56,6 +56,11 @@
       "require": "./dist/TestStunHandler.spec.js",
       "types": "./dist/TestStunHandler.spec.d.ts"
     },
+    "./testUtils": {
+      "import": "./dist/testUtils.js",
+      "require": "./dist/testUtils.js",
+      "types": "./dist/testUtils.d.ts"
+    },
     "./launcher/runIShspSocketTests": {
       "import": "./dist/launcher/runIShspSocketTests.js",
       "require": "./dist/launcher/runIShspSocketTests.js",

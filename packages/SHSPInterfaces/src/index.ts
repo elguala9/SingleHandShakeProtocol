@@ -3,6 +3,7 @@
  */
 
 export * from "./IShsp.js";
+export * from "./IShspInstance.js";
 export * from "./IShspPeer.js";
 export * from "./IShspSocket.js";
 export * from "./IStunHandler.js";

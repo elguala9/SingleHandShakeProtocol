@@ -10,6 +10,7 @@
     "gen-exports": "npx gen-exports dist -p package.json",
     "test:stun-handler": "ts-mocha src/launcher/runIStunHandlerTests.ts",
     "test:shsp-socket": "ts-mocha src/launcher/runIShspSocketTests.ts --timeout 30000",
+    "test:shsp-peer": "ts-mocha src/launcher/runIShspPeerTests.ts --timeout 30000",
     "test:receiver": "ts-mocha src/launcher/runReceiverShspSocketTestLocal.ts --timeout 300000",
     "test:sender": "ts-mocha src/launcher/runSenderShspSocketTestLocal.ts --timeout 30000",
     "test:receiver-global": "ts-mocha src/launcher/runReceiverShspSocketTestGlobal.ts --timeout 300000",
@@ -36,6 +37,11 @@
       "require": "./dist/IStunHandler.spec.js",
       "types": "./dist/IStunHandler.spec.d.ts"
     },
+    "./TestShspPeer.spec": {
+      "import": "./dist/TestShspPeer.spec.js",
+      "require": "./dist/TestShspPeer.spec.js",
+      "types": "./dist/TestShspPeer.spec.d.ts"
+    },
     "./TestShspReceiver.spec": {
       "import": "./dist/TestShspReceiver.spec.js",
       "require": "./dist/TestShspReceiver.spec.js",
@@ -60,6 +66,11 @@
       "import": "./dist/testUtils.js",
       "require": "./dist/testUtils.js",
       "types": "./dist/testUtils.d.ts"
+    },
+    "./launcher/runIShspPeerTests": {
+      "import": "./dist/launcher/runIShspPeerTests.js",
+      "require": "./dist/launcher/runIShspPeerTests.js",
+      "types": "./dist/launcher/runIShspPeerTests.d.ts"
     },
     "./launcher/runIShspSocketTests": {
       "import": "./dist/launcher/runIShspSocketTests.js",

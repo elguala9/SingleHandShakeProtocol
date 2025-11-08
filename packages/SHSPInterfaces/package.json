@@ -26,6 +26,11 @@
       "require": "./dist/IShsp.js",
       "types": "./dist/IShsp.d.ts"
     },
+    "./IShspInstance": {
+      "import": "./dist/IShspInstance.js",
+      "require": "./dist/IShspInstance.js",
+      "types": "./dist/IShspInstance.d.ts"
+    },
     "./IShspPeer": {
       "import": "./dist/IShspPeer.js",
       "require": "./dist/IShspPeer.js",
@@ -40,6 +45,11 @@
       "import": "./dist/IStunHandler.js",
       "require": "./dist/IStunHandler.js",
       "types": "./dist/IStunHandler.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "require": "./dist/types.js",
+      "types": "./dist/types.d.ts"
     }
   }
 }

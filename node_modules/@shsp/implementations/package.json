@@ -57,6 +57,11 @@
       "require": "./dist/implementations/Shsp.js",
       "types": "./dist/implementations/Shsp.d.ts"
     },
+    "./implementations/ShspInstance": {
+      "import": "./dist/implementations/ShspInstance.js",
+      "require": "./dist/implementations/ShspInstance.js",
+      "types": "./dist/implementations/ShspInstance.d.ts"
+    },
     "./implementations/ShspPeer": {
       "import": "./dist/implementations/ShspPeer.js",
       "require": "./dist/implementations/ShspPeer.js",
@@ -66,6 +71,11 @@
       "import": "./dist/implementations/ShspSocket.js",
       "require": "./dist/implementations/ShspSocket.js",
       "types": "./dist/implementations/ShspSocket.d.ts"
+    },
+    "./implementations/ShspSocketNode": {
+      "import": "./dist/implementations/ShspSocketNode.js",
+      "require": "./dist/implementations/ShspSocketNode.js",
+      "types": "./dist/implementations/ShspSocketNode.d.ts"
     },
     "./implementations/StunHandler": {
       "import": "./dist/implementations/StunHandler.js",
@@ -81,6 +91,11 @@
       "import": "./dist/utility/CallbackMap.js",
       "require": "./dist/utility/CallbackMap.js",
       "types": "./dist/utility/CallbackMap.d.ts"
+    },
+    "./utility/ConcatUtility": {
+      "import": "./dist/utility/ConcatUtility.js",
+      "require": "./dist/utility/ConcatUtility.js",
+      "types": "./dist/utility/ConcatUtility.d.ts"
     },
     "./utility/CreateSocket": {
       "import": "./dist/utility/CreateSocket.js",

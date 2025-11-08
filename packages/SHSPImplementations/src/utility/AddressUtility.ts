@@ -1,16 +1,24 @@
 import { RemoteInfo } from 'node:dgram';
-import { StunResponse } from '@shsp/types/index';
+import { StunResponse, PeerInfo } from '@shsp/types/index';
 
 export function formatAddress(rinfo: RemoteInfo): string {
-  return formatAddressParts(rinfo.address, rinfo.port);
+  return formatAddressParts({
+    address: rinfo.address,
+    port: rinfo.port,
+    family: rinfo.family
+  });
 }
 
-export function formatAddressParts(address: string, port: number): string {
-  return `${address}:${port}`;
+export function formatAddressParts(peerInfo: PeerInfo): string {
+  return `${peerInfo.address}:${peerInfo.port}`;
 }
 
 export function formatAddressStun(response: StunResponse): string {
-  return formatAddressParts(response.publicIp, response.publicPort);
+  return formatAddressParts({
+    address: response.publicIp,
+    port: response.publicPort,
+    family: "IPv4"
+  });
 }
 
 /**

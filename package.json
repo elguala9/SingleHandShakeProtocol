@@ -38,6 +38,7 @@
     "lage": "^2.14.15"
   },
   "dependencies": {
-    "add-js-import": "^1.0.2"
+    "add-js-import": "^1.0.2",
+    "capacitor-udp": "^0.2.0"
   }
 }
